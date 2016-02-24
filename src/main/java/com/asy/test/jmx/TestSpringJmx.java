@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Created by asy
  */
-public class TestClass {
+public class TestSpringJmx {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");

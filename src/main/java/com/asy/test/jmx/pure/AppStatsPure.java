@@ -1,35 +1,35 @@
-package com.asy.test.jmx.mbean;
+package com.asy.test.jmx.pure;
 
 /**
  * Created by asy
  */
-public class AppStats {
+public class AppStatsPure implements AppStatsPureMBean {
 
     private String appDescription;
     private int maxAllowedConnections;
-    private int currentConnectionCount;
+    private int currentConnectionCount = 0;
 
-    public int getCurrentConnectionCount() {
-        return currentConnectionCount;
-    }
-
-    public void setAppDescription(String desc) {
-        appDescription = desc;
-    }
-
-    public String getAppDescription() {
+    public String showApplicationDescription() {
         return appDescription;
     }
 
-    public int getMaxAllowedConnections() {
+    public void updateApplicationDescription(String appDescription) {
+        this.appDescription = appDescription;
+    }
+
+    public int showMaxAllowedConnections() {
         return maxAllowedConnections;
     }
 
-    public void setMaxAllowedConnections(int maxAllowedConnections) {
+    public void updateMaxAllowedConnections(int maxAllowedConnections) {
         if (maxAllowedConnections < 1) {
             throw new RuntimeException("Max allowed connections cannot be less than 1");
         }
         this.maxAllowedConnections = maxAllowedConnections;
+    }
+
+    public int getCurrentConnectionCount() {
+        return currentConnectionCount;
     }
 
     public void connect() {
@@ -40,6 +40,9 @@ public class AppStats {
     }
 
     public void disconnect() {
+        if (currentConnectionCount == 0) {
+            throw new RuntimeException("There is no connection to be released");
+        }
         currentConnectionCount--;
     }
 
